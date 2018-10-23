@@ -1,6 +1,3 @@
-# usage:
-# gunicorn -c gtime/gconf.py --workers=2 --bind=localhost:8000 --log-level=debug gtime.wsgi
-
 from __future__ import absolute_import
 from __future__ import unicode_literals
 preload_app = True
