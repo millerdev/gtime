@@ -10,57 +10,89 @@ process: gunicorn/django
 
 process: client
     workon gt
-    python client.py
+    python client.py http://localhost:8080/slow-ext
 """
 
 from __future__ import print_function
-import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from datetime import datetime
+from operator import itemgetter
 
 import grequests
-
-URL = "http://localhost:8080/slow-num"
-factor = 1.33
+import requests
 
 def main():
     parser = ArgumentParser(
         description=__doc__,
         formatter_class=RawDescriptionHelpFormatter,
     )
-    parser.add_argument("-s", "--server-url", default=URL,
-        help="Server URL [%s]" % URL)
+    parser.add_argument("url", help="Server URL")
     parser.add_argument("-t", "--timeout", default=5, type=int,
         help="Timeout in seconds [5]")
     args = parser.parse_args()
-    url = args.server_url
+    url = args.url
     timeout = args.timeout
 
-    concurrency = 20
+    def exception_handler(request, err):
+        add_error(type(err).__name__)
+
+    def add_error(name):
+        try:
+            record = errors[name]
+        except KeyError:
+            record = errors[name] = {"name": name, "count": 0}
+        record["count"] += 1
+
+    adj = 0
+    concurrency = 32
     while True:
-        print("request %s -> " % concurrency, end="")
-        sys.stdout.flush()
+        errors = new_errors()
         start = datetime.now()
+        print("{} request {} -> ".format(start, concurrency), end="", flush=1)
         rs = grequests.map(
             (grequests.get(url, timeout=timeout) for x in range(concurrency)),
             exception_handler=exception_handler,
         )
         elapsed = datetime.now() - start
-        failed = sum(1 for r in rs if r is None)
-        print("%s responses%s in %s" % (
-            sum(1 for r in rs if r is not None),
-            ((" (%s failed)" % failed) if failed else ""),
-            elapsed,
-        ))
+        success = 0
+        failed = 0
+        for resp in rs:
+            if resp is None:
+                failed += 1
+                continue
+            if resp.status_code != requests.codes.ok:
+                failed += 1
+                add_error(str(resp.status_code))
+            else:
+                success += 1
+            resp.close()
+        if failed:
+            fail_msg = " ({})".format(" ".join(
+                "{name}={count}".format(**err)
+                for err in sorted(errors.values(), key=itemgetter("name"))
+                if err["count"]
+            ))
+        else:
+            fail_msg = ""
+        print("{} responses in {}{}".format(success, elapsed, fail_msg))
         if not failed:
-            concurrency = int(concurrency * factor)
-        elif failed > concurrency / 10 and concurrency > 3:
-            concurrency = int(concurrency / factor)
+            if adj:
+                concurrency += adj
+                adj *= 2
+            else:
+                concurrency *= 2
+        else:
+            adj = max(int(failed / 2.), 1)
+            concurrency -= adj
+            if concurrency < 1:
+                concurrency = 1
+                adj = 0
 
-def exception_handler(request, err):
-    etype = type(err).__name__
-    if etype != "ReadTimeout":
-        print("{}: {}".format(etype, err))
+def new_errors():
+    return {
+        "ReadTimeout": {"name": "time", "count": 0},
+        "ConnectionError": {"name": "conn", "count": 0},
+    }
 
 if __name__ == '__main__':
     main()

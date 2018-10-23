@@ -1,0 +1,204 @@
+--------------------------------------------------------------------------------
+django==2.1.2
+grequests==0.3.0
+requests==2.20.0
+
+(gt) ::gtime$ python client.py http://localhost:9999/
+2018-10-23 14:48:48.316920 request 32 -> 32 responses in 0:00:03.244102
+2018-10-23 14:48:51.561207 request 64 -> 64 responses in 0:00:03.517063
+2018-10-23 14:48:55.078534 request 128 -> 128 responses in 0:00:03.996301
+2018-10-23 14:48:59.075280 request 256 -> 256 responses in 0:00:05.354485
+2018-10-23 14:49:04.430520 request 512 -> 512 responses in 0:00:07.282277
+2018-10-23 14:49:11.714032 request 1024 -> 1024 responses in 0:00:13.212463
+2018-10-23 14:49:24.929300 request 2048 -> 1099 responses in 0:00:33.473696 (conn=795 time=154)
+2018-10-23 14:49:58.406219 request 1574 -> 898 responses in 0:00:22.797996 (conn=649 time=27)
+2018-10-23 14:50:21.206810 request 1236 -> 1082 responses in 0:00:18.258872 (conn=26 time=128)
+2018-10-23 14:50:39.468240 request 1159 -> 1046 responses in 0:00:16.184480 (conn=28 time=85)
+2018-10-23 14:50:55.655770 request 1103 -> 630 responses in 0:00:18.090448 (conn=376 time=97)
+2018-10-23 14:51:13.748052 request 867 -> 867 responses in 0:00:10.831257
+2018-10-23 14:51:24.581300 request 1103 -> 1040 responses in 0:00:14.959229 (time=63)
+2018-10-23 14:51:39.543560 request 1072 -> 1022 responses in 0:00:15.594804 (time=50)
+2018-10-23 14:51:55.140943 request 1047 -> 1022 responses in 0:00:17.930192 (time=25)
+2018-10-23 14:52:13.073632 request 1035 -> 1022 responses in 0:00:14.892203 (conn=13)
+2018-10-23 14:52:27.968513 request 1029 -> 1012 responses in 0:00:16.149065 (time=17)
+2018-10-23 14:52:44.120143 request 1021 -> 998 responses in 0:00:15.786015 (conn=23)
+
+$ python client.py http://localhost:8080/
+2018-10-23 14:54:07.668994 request 32 -> 32 responses in 0:00:00.594742
+2018-10-23 14:54:08.263912 request 64 -> 64 responses in 0:00:00.990502
+2018-10-23 14:54:09.254761 request 128 -> 78 responses in 0:00:03.465138 (502=50)
+2018-10-23 14:54:12.720507 request 103 -> 103 responses in 0:00:01.522473
+2018-10-23 14:54:14.243394 request 128 -> 102 responses in 0:00:01.685386 (502=26)
+2018-10-23 14:54:15.929363 request 115 -> 115 responses in 0:00:01.955183
+2018-10-23 14:54:17.884983 request 128 -> 128 responses in 0:00:06.499278
+2018-10-23 14:54:24.384780 request 154 -> 142 responses in 0:00:02.233180 (502=12)
+2018-10-23 14:54:26.618569 request 148 -> 145 responses in 0:00:02.394004 (502=3)
+2018-10-23 14:54:29.013135 request 147 -> 136 responses in 0:00:02.316842 (502=11)
+2018-10-23 14:54:31.330610 request 142 -> 140 responses in 0:00:02.322322 (502=2)
+2018-10-23 14:54:33.654165 request 141 -> 141 responses in 0:00:06.253969
+2018-10-23 14:54:39.908714 request 142 -> 142 responses in 0:00:02.069579
+2018-10-23 14:54:41.978783 request 144 -> 137 responses in 0:00:02.244606 (502=7)
+2018-10-23 14:54:44.224219 request 141 -> 141 responses in 0:00:02.396344
+2018-10-23 14:54:46.622004 request 144 -> 144 responses in 0:00:02.394435
+2018-10-23 14:54:49.017264 request 150 -> 150 responses in 0:00:06.300465
+2018-10-23 14:54:55.318279 request 162 -> 162 responses in 0:00:02.384974
+2018-10-23 14:54:57.703947 request 186 -> 186 responses in 0:00:04.332909
+2018-10-23 14:55:02.037463 request 234 -> 175 responses in 0:00:03.409261 (502=59)
+2018-10-23 14:55:05.448188 request 205 -> 203 responses in 0:00:03.223373 (502=2)
+2018-10-23 14:55:08.672230 request 204 -> 192 responses in 0:00:03.294304 (502=12)
+2018-10-23 14:55:11.967612 request 198 -> 198 responses in 0:00:04.577073
+
+(gt) ::gtime$ python client.py http://localhost:8080/slow-loc
+2018-10-23 14:55:31.000680 request 32 -> 32 responses in 0:00:03.380474
+2018-10-23 14:55:34.381316 request 64 -> 64 responses in 0:00:03.782736
+2018-10-23 14:55:38.164377 request 128 -> 127 responses in 0:00:08.794221 (time=1)
+2018-10-23 14:55:46.959084 request 127 -> 81 responses in 0:00:06.246035 (time=46)
+2018-10-23 14:55:53.206139 request 104 -> 104 responses in 0:00:05.219676
+2018-10-23 14:55:58.426192 request 127 -> 127 responses in 0:00:04.467836
+2018-10-23 14:56:02.894556 request 173 -> 173 responses in 0:00:05.374715
+2018-10-23 14:56:08.270301 request 265 -> 265 responses in 0:00:06.467643
+2018-10-23 14:56:14.739097 request 449 -> 184 responses in 0:00:08.875978 (502=194 time=71)
+2018-10-23 14:56:23.616476 request 317 -> 287 responses in 0:00:08.572145 (502=30)
+2018-10-23 14:56:32.189599 request 302 -> 302 responses in 0:00:06.906866
+2018-10-23 14:56:39.097356 request 317 -> 89 responses in 0:00:13.468742 (time=228)
+2018-10-23 14:56:52.566740 request 203 -> 203 responses in 0:00:05.508960
+2018-10-23 14:56:58.079335 request 317 -> 317 responses in 0:00:07.219818
+2018-10-23 14:57:05.300051 request 545 -> 180 responses in 0:00:13.323230 (502=209 conn=22 time=134)
+
+(gt) ::gtime$ python client.py http://localhost:8080/slow-ext
+2018-10-23 14:57:32.457828 request 32 -> 32 responses in 0:00:03.985195
+2018-10-23 14:57:36.443198 request 64 -> 64 responses in 0:00:05.188296
+2018-10-23 14:57:41.631801 request 128 -> 92 responses in 0:00:06.142552 (time=36)
+2018-10-23 14:57:47.776154 request 110 -> 3 responses in 0:00:06.674336 (time=107)
+2018-10-23 14:57:54.451104 request 57 -> 0 responses in 0:00:06.027099 (time=57)
+2018-10-23 14:58:00.478353 request 29 -> 29 responses in 0:00:03.891266
+2018-10-23 14:58:04.369791 request 57 -> 57 responses in 0:00:04.436779
+2018-10-23 14:58:08.807482 request 113 -> 83 responses in 0:00:06.124705 (time=30)
+2018-10-23 14:58:14.933061 request 98 -> 40 responses in 0:00:06.136780 (time=58)
+2018-10-23 14:58:21.070186 request 69 -> 69 responses in 0:00:09.190199
+2018-10-23 14:58:30.260693 request 98 -> 98 responses in 0:00:06.187707
+2018-10-23 14:58:36.448860 request 156 -> 43 responses in 0:00:06.734398 (time=113)
+2018-10-23 14:58:43.183620 request 100 -> 3 responses in 0:00:07.025527 (time=97)
+2018-10-23 14:58:50.209339 request 52 -> 51 responses in 0:00:09.159592 (time=1)
+2018-10-23 14:58:59.369166 request 51 -> 36 responses in 0:00:05.449423 (time=15)
+2018-10-23 14:59:04.818869 request 44 -> 44 responses in 0:00:04.274491
+2018-10-23 14:59:09.094140 request 51 -> 51 responses in 0:00:04.290876
+2018-10-23 14:59:13.385298 request 65 -> 65 responses in 0:00:04.717382
+2018-10-23 14:59:18.103026 request 93 -> 56 responses in 0:00:05.790579 (time=37)
+2018-10-23 14:59:23.894002 request 75 -> 75 responses in 0:00:05.031458
+
+--------------------------------------------------------------------------------
+
+(gt) ::gtime$ python client.py -s http://localhost:8080/slow-ext
+request 20 -> 20 responses in 0:00:03.558539
+request 26 -> 26 responses in 0:00:03.719847
+request 34 -> 33 responses (1 failed) in 0:00:05.272060
+request 34 -> 34 responses in 0:00:03.862649
+request 45 -> 45 responses in 0:00:04.342573
+request 59 -> 0 responses (59 failed) in 0:00:05.610729
+request 44 -> 0 responses (44 failed) in 0:00:05.384259
+request 33 -> 33 responses in 0:00:03.825617
+request 43 -> 43 responses in 0:00:04.749506
+request 57 -> 31 responses (26 failed) in 0:00:05.731582
+request 42 -> 42 responses in 0:00:04.793147
+request 55 -> 37 responses (18 failed) in 0:00:05.539522
+request 41 -> 41 responses in 0:00:04.105195
+request 54 -> 53 responses (1 failed) in 0:00:07.574928
+request 54 -> 53 responses (1 failed) in 0:00:05.447932
+request 54 -> 54 responses in 0:00:04.885514
+request 71 -> 71 responses in 0:00:04.619781
+request 94 -> 94 responses in 0:00:05.772018
+request 125 -> 124 responses (1 failed) in 0:00:09.217942
+request 125 -> 56 responses (69 failed) in 0:00:06.234605
+request 93 -> 11 responses (82 failed) in 0:00:07.092390
+request 69 -> 69 responses in 0:00:06.168877
+request 91 -> 50 responses (41 failed) in 0:00:06.067860
+request 68 -> 66 responses (2 failed) in 0:00:05.477289
+request 68 -> 68 responses in 0:00:05.143145
+request 90 -> 90 responses in 0:00:05.039955
+request 119 -> 54 responses (65 failed) in 0:00:06.021635
+request 89 -> 89 responses in 0:00:05.961995
+request 118 -> 23 responses (95 failed) in 0:00:06.838122
+request 88 -> 0 responses (88 failed) in 0:00:06.094657
+request 66 -> 56 responses (10 failed) in 0:00:05.533622
+request 49 -> 49 responses in 0:00:08.639287
+
+# no django server restart
+(gt) ::gtime$ python client.py -s http://localhost:8080/slow-int
+request 20 -> 5 responses (15 failed) in 0:00:05.197591
+request 15 -> 15 responses in 0:00:03.441066
+request 19 -> 19 responses in 0:00:03.409459
+request 25 -> 1 responses (24 failed) in 0:00:05.203602
+request 18 -> 0 responses (18 failed) in 0:00:05.144010
+request 13 -> 0 responses (13 failed) in 0:00:05.110030
+request 9 -> 0 responses (9 failed) in 0:00:05.107254
+request 6 -> 0 responses (6 failed) in 0:00:05.123397
+request 4 -> 0 responses (4 failed) in 0:00:05.060984
+request 3 -> 0 responses (3 failed) in 0:00:05.034970
+request 3 -> 0 responses (3 failed) in 0:00:05.039052
+request 3 -> 0 responses (3 failed) in 0:00:05.041064
+request 3 -> 0 responses (3 failed) in 0:00:05.040429
+request 3 -> 0 responses (3 failed) in 0:00:05.051901
+request 3 -> 0 responses (3 failed) in 0:00:05.066369
+request 3 -> 0 responses (3 failed) in 0:00:05.047223
+request 3 -> 0 responses (3 failed) in 0:00:05.059790
+
+# restart django server
+(gt) ::gtime$ python client.py -s http://localhost:8080/slow-int
+request 20 -> 20 responses in 0:00:04.534116
+request 26 -> 26 responses in 0:00:03.894773
+request 34 -> 34 responses in 0:00:04.169488
+request 45 -> 41 responses (4 failed) in 0:00:05.797445
+request 45 -> 0 responses (45 failed) in 0:00:05.409393
+request 33 -> 0 responses (33 failed) in 0:00:05.266823
+request 24 -> 0 responses (24 failed) in 0:00:05.214824
+request 18 -> 0 responses (18 failed) in 0:00:05.139649
+request 13 -> 0 responses (13 failed) in 0:00:05.104027
+request 9 -> 0 responses (9 failed) in 0:00:05.099236
+request 6 -> 0 responses (6 failed) in 0:00:05.064477
+request 4 -> 0 responses (4 failed) in 0:00:05.047301
+request 3 -> 0 responses (3 failed) in 0:00:05.035887
+request 3 -> 0 responses (3 failed) in 0:00:05.051905
+request 3 -> 0 responses (3 failed) in 0:00:05.035060
+request 3 -> 0 responses (3 failed) in 0:00:05.041983
+request 3 -> 0 responses (3 failed) in 0:00:05.043513
+request 3 -> 0 responses (3 failed) in 0:00:05.041749
+request 3 -> 0 responses (3 failed) in 0:00:05.036034
+
+(gt) ::gtime$ python client.py -s http://localhost:8080/slow-loc
+request 20 -> 20 responses in 0:00:03.258440
+request 26 -> 26 responses in 0:00:03.274753
+request 34 -> 34 responses in 0:00:03.384884
+request 45 -> 45 responses in 0:00:04.417795
+request 59 -> 59 responses in 0:00:03.748426
+request 78 -> 78 responses in 0:00:08.916124
+request 103 -> 66 responses (37 failed) in 0:00:05.849638
+request 77 -> 77 responses in 0:00:04.158990
+request 102 -> 102 responses in 0:00:04.521230
+request 135 -> 135 responses in 0:00:05.843505
+request 179 -> 179 responses in 0:00:10.301029
+request 238 -> 238 responses in 0:00:05.940627
+request 316 -> 316 responses in 0:00:11.142234
+request 420 -> 226 responses (194 failed) in 0:00:09.459732
+request 315 -> 142 responses (173 failed) in 0:00:08.140728
+request 236 -> 236 responses in 0:00:06.779481
+request 313 -> 284 responses (29 failed) in 0:00:08.547777
+request 313 -> 313 responses in 0:00:07.535978
+request 416 -> 385 responses (31 failed) in 0:00:08.989492
+request 416 -> 416 responses in 0:00:08.297341
+request 553 -> 436 responses (117 failed) in 0:00:10.354018
+
+(gt) ::gtime$ python client.py -s http://localhost:9999/
+request 20 -> 20 responses in 0:00:03.167238
+request 26 -> 26 responses in 0:00:03.229051
+request 34 -> 34 responses in 0:00:03.331437
+request 45 -> 45 responses in 0:00:03.318263
+request 59 -> 59 responses in 0:00:03.431113
+request 78 -> 78 responses in 0:00:03.620395
+request 103 -> 103 responses in 0:00:08.648971
+request 136 -> 136 responses in 0:00:03.992996
+request 180 -> 180 responses in 0:00:06.387199
+request 239 -> 239 responses in 0:00:04.797361
+request 317 -> 317 responses in 0:00:07.254569
+request 421 -> 421 responses in 0:00:06.599658
+request 559 -> 559 responses in 0:00:09.466567

@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+import time
+import random
 import requests
 from django.conf.urls import include, url
 from django.contrib import admin
@@ -21,13 +23,24 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse("ok")
 
-def slow_num(request):
+def slow_ext(request):
+    """Slow external request"""
     resp = requests.get("http://localhost:9999/")
     return HttpResponse(resp.content)
 
+def slow_loc(request):
+    """Delayed response"""
+    time.sleep(3)
+    return HttpResponse(str(random.randint(0, 1000)))
+
+def slow_int(request):
+    """Recursive request to /slow-loc"""
+    resp = requests.get("http://localhost:8080/slow-loc")
+    return HttpResponse(resp.content)
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^ping/', include('ping.urls')),
-    url(r'^slow-num$', slow_num, name="slow_num"),
     url(r'^$', index, name="index"),
+    url(r'^slow-int$', slow_int, name="slow_int"),
+    url(r'^slow-ext$', slow_ext, name="slow_ext"),
+    url(r'^slow-loc$', slow_loc, name="slow_loc"),
 ]
