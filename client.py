@@ -5,11 +5,16 @@ process: slow random service
     gunicorn -b localhost:9999 --worker-class=gevent --log-level=debug slowrand
 
 process: gunicorn/django
-    workon hq
+    workon hq  # or workon gt
     gunicorn -b localhost:8000 -c gtime/gconf.py --log-level=debug gtime.wsgi
+
+process: nginx proxy port 8080 -> 8000
 
 process: client
     workon gt
+    python client.py http://localhost:9999/
+    python client.py http://localhost:8080/
+    python client.py http://localhost:8080/slow-loc
     python client.py http://localhost:8080/slow-ext
 """
 
