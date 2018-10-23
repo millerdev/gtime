@@ -13,15 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+import requests
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("x")
+    return HttpResponse("ok")
+
+def slow_num(request):
+    resp = requests.get("http://localhost:9999/")
+    return HttpResponse(resp.content)
 
 urlpatterns = [
-    url(r'^ping/', include('ping.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^ping/', include('ping.urls')),
+    url(r'^slow-num$', slow_num, name="slow_num"),
     url(r'^$', index, name="index"),
 ]
